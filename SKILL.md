@@ -54,9 +54,55 @@ description: "Java编码指南，包含AI编码工作流、编码规范、并发
 
 ### 公司内部包
 
-| 场景 | 文档 |
-|------|------|
-| 内部自研包/框架的使用规范（41~60 区间，按需扩展） | [41-internal-packages.md](references/41-internal-packages.md) |
+> 公司内部包无需预先创建文档文件，AI 在遇到公司自研包时，按以下规则即时生成文档内容。
+
+**编号规则**：从 41 开始递增（41-xxx-sdk.md、42-xxx-framework.md...），最多 20 个。
+
+**包简称命名**：小写英文，多单词用连字符分隔，如 `41-kunlun.md`、`42-taihong-framework.md`。
+
+**文档模板**（AI 编写公司包文档时应包含以下结构）：
+
+```markdown
+# {包名称}
+
+简要说明包的用途和适用场景。
+
+Maven 依赖：
+\```xml
+<dependency>
+    <groupId>xxx</groupId>
+    <artifactId>xxx</artifactId>
+    <version>x.x.x</version>
+</dependency>
+\```
+
+---
+
+# 一、核心功能
+
+## 1.1 功能名称
+
+\```java
+// 使用示例
+\```
+
+说明。
+
+---
+
+# 二、常用 API
+
+| 类/方法 | 说明 | 示例 |
+|---------|------|------|
+| `XxxUtil.method()` | 用途 | 参考代码 |
+
+---
+
+# 三、使用注意事项
+
+1. 注意事项1
+2. 注意事项2
+```
 
 ### 其他
 
@@ -83,7 +129,7 @@ description: "Java编码指南，包含AI编码工作流、编码规范、并发
 ├─ 不可变集合/缓存/哈希 → 23-guava
 ├─ 字符串/集合通用工具 → 24-apache-commons
 │
-├─ 公司内部包 → 41~60（查看 41-internal-packages 了解规则）
+├─ 公司内部包 → 41~60（按 SKILL.md 中内置规则编写）
 │
 ├─ 收到代码示例 → 02-code-examples-template（提炼规则并写入技能）
 └─ 无法归类的内容 → 99-others（兜底收录）

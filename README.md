@@ -42,10 +42,9 @@ references/
 │
 ├── 21-lombok.md                   # Lombok 使用指南
 ├── 22-hutool.md                   # Hutool 工具库
-├── 23-guava.md                    # Guava 工具库
-├── 24-apache-commons.md           # Apache Commons
-│
-├── 41-internal-packages.md        # 公司内部包使用指南（41~60 区间，按需扩展）
+├── 23-baibao.md                   # Baibao 工具库
+├── 24-guava.md                    # Guava  工具库
+├── 25-apache-commons.md           # Apache Commons
 │
 └── 99-others.md                   # 其他（兜底收录）
 ```
@@ -54,7 +53,7 @@ references/
 - **01~02**：工作流与模板（AI 编码前必读）
 - **03~08**：核心编码规范（通用 Java 知识）
 - **21~40**：第三方框架/工具库
-- **41~60**：公司内部包/框架
+- **41~60**：公司内部包/框架（按需创建，无需预先建文件）
 - **99**：其他（兜底收录）
 
 <br />
@@ -93,17 +92,17 @@ references/
 
 ### 2. 添加公司内部包文档
 
-如果你的项目使用了自研框架或内部 SDK：
+> 无需预先创建 `41-internal-packages.md` 文件。AI 在遇到公司自研包时，按以下规则即时生成文档内容。
 
-```
-步骤：
-1. 复制 references/41-internal-packages.md 为模板
-2. 按编号创建新文件，如 references/42-your-sdk.md
-3. 填写包的 Maven 依赖、核心功能、常用 API、使用示例
-4. 更新 SKILL.md 中的导航表，添加新文档入口
-```
+**步骤**：
 
-文档模板：
+1. 确定包编号（从 41 开始递增）
+2. 按命名规范创建文档，如 `references/41-demo.md`
+3. 按下方模板填写包的 Maven 依赖、核心功能、常用 API、使用示例
+
+**命名规范**：`{编号}-{包简称}.md`，包简称用小写英文，多单词用连字符分隔，如 `41-demo.md`、`42-demo-framework.md`。
+
+**文档模板**：
 
 ```markdown
 # {包名称}
