@@ -360,3 +360,37 @@ Controller
 | `processData()` | 查询后 | 业务数据处理，受 QueryMode 控制 |
 | `fillingData()` | 查询后 | 字段填充，受 QueryMode 控制 |
 | `changeLog()` | 变更后 | 记录数据变更日志 |
+
+---
+
+## 七、Query 命名与查询构建
+
+### 7.1 Query 字段命名规范
+
+| 查询类型 | 命名规则 | 示例 |
+|---------|---------|------|
+| 模糊搜索 | `xxxLike` | `nameLike`、`codeLike` |
+| 精确匹配（批量） | `xxxList` | `idList`、`statusList` |
+| 范围查询 | `xxxStart` / `xxxEnd` | `createTimeStart`、`createTimeEnd` |
+| 精确匹配（单值） | 直接用字段名 | `type`、`status` |
+
+### 7.2 buildQueryWrapper 示例
+
+```java
+@Override
+protected MPJLambdaWrapper<Entity> buildQueryWrapper(EntityQuery query) {
+    return JoinWrappers.lambda(Entity.class)
+            .in(isNotEmpty(query.getIdList()), Entity::getId, query.getIdList())
+            .like(isNotBlank(query.getNameLike()), Entity::getName, query.getNameLike())
+            .eq(isNotBlank(query.getType()), Entity::getType, query.getType())
+            .ge(nonNull(query.getCreateTimeStart()), Entity::getCreateTime, query.getCreateTimeStart())
+            .le(nonNull(query.getCreateTimeEnd()), Entity::getCreateTime, query.getCreateTimeEnd())
+            ;
+}
+```
+
+### 7.3 Param 字段精简
+
+AddParam/EditParam 中不要包含框架自动填充的字段：
+`platform`、`tenantId`、`ownerId`、`ownOrgId`、`createUser`、`createTime`、`modifyUser`、`modifyTime`、`deleteStatus`
+

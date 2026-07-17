@@ -23,6 +23,7 @@ description: Java编码规范与工具库指南。触发：Java代码编写/审�
 | 23 | Baibao |
 | 24 | Guava |
 | 25 | Apache Commons |
+| 26 | MyBatis-Plus |
 
 ## 加载规则
 
