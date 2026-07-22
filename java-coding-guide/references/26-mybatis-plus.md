@@ -1,4 +1,6 @@
-# 26 MyBatis-Plus
+# MyBatis-Plus：字段置空与其他常见问题
+
+MyBatis-Plus 开发中最容易踩的坑及解决方案。目前收录：updateById 无法更新 null 字段。
 
 ## 字段置空操作
 

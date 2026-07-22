@@ -106,13 +106,13 @@ User user = getUser(id);
 if (user == null) { user = createDefaultUser(); }
 ```
 
-> 异常处理规范（捕获具体异常、try-with-resources）详见 [03-异常与日志](./03-exception-and-logging.md)。
+> 异常处理规范（捕获具体异常、try-with-resources）详见 [03-代码规范](./03-code-standards.md)。
 
 ---
 
 # 六、I/O 优化
 
-> 始终使用 `BufferedReader`/`BufferedWriter` 包装流。`try-with-resources` 详见 [03-异常与日志](./03-exception-and-logging.md)。
+> 始终使用 `BufferedReader`/`BufferedWriter` 包装流。`try-with-resources` 详见 [03-代码规范](./03-code-standards.md)。
 
 ---
 
@@ -132,7 +132,7 @@ billDetailService.removeByIds(ids);
 2. 数据量 > 1000 时分批执行，避免 SQL 过长
 3. 批量操作应在同一事务内，确保原子性
 
-> 并发优化（`ConcurrentHashMap`、`ReadWriteLock`）详见 [07-并发编程](./07-concurrent.md)。
+> 并发优化（`ConcurrentHashMap`、`ReadWriteLock`）详见 [07-并发编程](./07-concurrency.md)。
 
 ---
 

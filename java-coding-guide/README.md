@@ -1,8 +1,10 @@
 # Java Coding Guide — AI 编码指南技能
 
-一个指导 AI 编写高质量、风格统一的 Java 代码的技能。适用于 **Java 1.6 及以上版本**的项目，不绑定特定框架或技术栈。
+一个指导 AI 编写高质量、风格统一的 Java 代码的技能。各 Java 版本通用，不绑定特定框架或技术栈。
 
-<br />
+> 文档中部分示例使用了 Stream / Optional / Lambda / CompletableFuture 等 Java 8+ 特性（`List.of` 等需 9+），低版本项目用传统写法替代即可。
+
+> **入口文件是 `SKILL.md`**，它包含完整的文档索引、触发钩子和按场景的加载规则。本 README 只介绍技能概述、定制方法和 FAQ。
 
 <br />
 
@@ -11,21 +13,15 @@
 安装此技能后，AI 在编写 Java 代码时会：
 
 1. **先搜索已有代码** — 不会盲目新建方法，而是先在项目中查找是否已有类似功能可复用
-
 2. **遵循统一的编码规范** — 命名、结构、注释、异常处理、日志风格保持一致
-
-3. **善用工具库** — 优先使用 Hutool、Guava、Apache Commons 等成熟工具类，不重复造轮子
-
+3. **善用工具库** — 优先使用 Hutool、Baibao/Kunlun、Guava、Apache Commons 等成熟工具类，不重复造轮子
 4. **应用设计模式** — 在合适场景使用建造者、策略、模板方法、观察者等模式
-
 5. **注意性能** — 避免常见性能陷阱（自动装箱、循环内创建对象、无界队列等）
-
 6. **遵循 API 设计规范** — RESTful 风格、统一返回值、分页约定、错误码体系
 
 <br />
 
-
-### 文档结构一览
+## 文档结构一览
 
 ```
 references/
@@ -42,39 +38,20 @@ references/
 │
 ├── 21-lombok.md                   # Lombok 使用指南
 ├── 22-hutool.md                   # Hutool 工具库
-├── 23-baibao.md                   # Baibao 工具库
-├── 24-guava.md                    # Guava  工具库
+├── 23-baibao.md                   # Baibao & Kunlun 框架
+├── 24-guava.md                    # Guava 工具库
 ├── 25-apache-commons.md           # Apache Commons
+├── 26-mybatis-plus.md             # MyBatis-Plus 常见问题
 │
 └── 99-others.md                   # 其他（兜底收录）
 ```
 
 编号区间含义：
-- **01~02**：工作流与模板（AI 编码前必读）
+- **01~02**：工作流与模板（AI 编码流程）
 - **03~08**：核心编码规范（通用 Java 知识）
 - **21~40**：第三方框架/工具库
 - **41~60**：公司内部包/框架（按需创建，无需预先建文件）
 - **99**：其他（兜底收录）
-
-<br />
-
-<br />
-
-## 如何使用
-
-将 `java-coding-guide/` 目录放到项目中即可。AI 会自动识别并根据场景查阅对应文档。
-
-**典型使用场景：**
-
-| 你对 AI 说的话 | AI 会参考的文档 |
-|---------------|----------------|
-| "帮我写一个用户服务类" | 01 → 03 → 07 → 22 |
-| "设计一个导出数据的接口" | 01 → 08 → 05 |
-| "优化这段代码的性能" | 06 → 04 |
-| "用 Hutool 处理日期" | 22 |
-| "帮我写并发任务处理" | 07 → 06 |
-
-<br />
 
 <br />
 
@@ -154,10 +131,10 @@ Maven 依赖：
 
 ```
 步骤：
-1. 在 references/ 目录下创建新文档，编号从 25 开始递增
-   如：references/25-mapstruct.md、references/26-easyexcel.md
+1. 在 references/ 目录下创建新文档，编号从 27 开始递增（21~26 已占用）
+   如：references/27-mapstruct.md、references/28-easyexcel.md
 2. 按现有工具库文档的格式编写（Maven依赖 → 核心功能 → 常用API → 示例代码）
-3. 更新 SKILL.md 中的导航表和决策树
+3. 更新 SKILL.md 中的文档索引表和加载规则表
 ```
 
 <br />
@@ -184,10 +161,10 @@ Maven 依赖：
 
 ```
 步骤：
-1. 在 references/ 目录下创建新文档，编号在 03~08 区间内递增
+1. 在 references/ 目录下创建新文档，编号在 09~20 区间内递增（03~08 已占用）
    如：references/09-sql-standards.md、references/10-unit-testing.md
 2. 按现有规范文档的格式编写（标题一分类 → 标题二小分类 → 代码示例）
-3. 更新 SKILL.md 中的导航表和决策树
+3. 更新 SKILL.md 中的文档索引表和加载规则表
 ```
 
 <br />
@@ -197,14 +174,12 @@ Maven 依赖：
 如果某些文档对你的项目不适用，直接删除即可：
 
 ```
-- 不用 Guava？删除 23-guava.md
-- 不用 Apache Commons？删除 24-apache-commons.md
+- 不用 Guava？删除 24-guava.md
+- 不用 Apache Commons？删除 25-apache-commons.md
 - 不需要 API 设计规范？删除 08-api-design.md
 
-删除后记得从 SKILL.md 的导航表和决策树中移除对应条目。
+删除后记得从 SKILL.md 的文档索引表和加载规则表中移除对应条目。
 ```
-
-<br />
 
 <br />
 
@@ -220,9 +195,4 @@ Maven 依赖：
 
 **Q: 技能文档太多，AI 会不会每次都读取所有文档？**
 
-不会。AI 会根据 SKILL.md 中的决策树按需查阅，不会每次都读取全部文档。
-
-<br />
-
-<br />
-
+不会。AI 会根据 SKILL.md 中的加载规则表按场景查阅，不会每次都读取全部文档。

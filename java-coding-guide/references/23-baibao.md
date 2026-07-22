@@ -1,12 +1,14 @@
 # Baibao & Kunlun 框架使用指南
 
+本文档同时覆盖 Baibao（Service 基础设施）和 Kunlun（数据处理/分页/事件/安全等核心模块），两者配合使用。
+
 ## 一、引入依赖
 
 ```xml
 <dependency>
     <groupId>io.github.kahle23</groupId>
     <artifactId>baibao</artifactId>
-    <version>最新版</version>
+    <version>按项目实际版本引入</version>
 </dependency>
 ```
 
