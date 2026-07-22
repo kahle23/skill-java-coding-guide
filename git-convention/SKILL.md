@@ -1,9 +1,11 @@
 ---
-name: "git-convention-guide"
+name: "git-convention"
 description: "Git操作规范与约定。触发：git提交/推送/分支操作、commit message编写、代码提交规范。"
 ---
 
-# Git Convention Guide
+# Git Convention
+
+**本技能性质：Reference 型（规范参考）** —— 不是引导你走完一个流程，而是你写 commit message / 操作分支时过来查规则，查完回去干活。核心动作是"确认格式对不对、type 选什么、分支怎么命名"，被动查阅即可。
 
 团队 Git 操作规范，重点是 Commit Message 格式与提交流程；分支/推送规范作为补充。
 
