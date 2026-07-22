@@ -68,5 +68,5 @@ description: 根据前后端代码逆向生成测试用例与 Python(Playwright)
 ## 关联技能
 
 - `code-to-doc-guide` — 代码转**文档**（技术文档 + 用户文档）。本技能是代码转**测试**，同属"代码逆向"系列，互补使用。
-- `python-coding-guide` — Python 编码规范，生成测试脚本时参考 03(命名/结构) 和 08(pytest/fixture)。
+- `python-coding-standard` — Python 编码规范，生成测试脚本时参考 03(命名/结构) 和 08(pytest/fixture)。
 - `feature-design-workflow` — 功能设计文档（开发前写）。设计文档里的接口和业务逻辑是测试用例的优质输入。

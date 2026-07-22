@@ -1,4 +1,4 @@
-# Python Coding Guide — AI 编码指南技能
+# Python Coding Standard — AI 编码规范技能
 
 一个指导 AI 编写高质量、风格统一的 Python 代码的技能。面向 Python 3.9+，不绑定特定框架（Flask / FastAPI / Django 均适用）。
 

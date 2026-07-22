@@ -1,11 +1,15 @@
 ---
-name: java-coding-guide
+name: java-coding-standard
 description: Java编码规范与工具库指南。触发：Java代码编写/审查/优化/重构/调试、编码规范、并发编程、API设计、设计模式、性能优化、Lombok/Hutool/Baibao/Kunlun/Guava/Apache Commons/MyBatis-Plus。
 ---
 
-# Java Coding Guide
+# Java Coding Standard
 
 不绑定特定框架，各版本通用。本文档为 AI 编写 Java 代码的统一规范入口。
+
+## 本技能性质
+
+这是 **Reference 型技能**（规范参考）。核心动作是**查阅确认**——写代码时需要查规则就过来查，不需要从头到尾读一遍。与 Workflow 型技能（引导你走完一个流程）不同，本技能的使用方式是：按需命中对应编号文档 → 确认规范 → 回去写代码。
 
 > **版本注意**：文档中 Stream / Optional / Lambda / CompletableFuture / `List.of` 等特性需 Java 8+（部分需 9+）。低版本项目使用对应文档时，用传统写法替代这些语法即可。
 

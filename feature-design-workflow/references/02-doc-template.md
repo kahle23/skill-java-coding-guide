@@ -47,11 +47,11 @@
 
 ## 三、表结构设计
 
-> 命名与标准字段规范委托 `db-design-guide`，本章节仅输出设计结果。
+> 命名与标准字段规范委托 `db-design-standard`，本章节仅输出设计结果。
 
 ### 3.1 新建表
 
-每张新表提供完整的 CREATE TABLE SQL，遵循 `db-design-guide` 规范。
+每张新表提供完整的 CREATE TABLE SQL，遵循 `db-design-standard` 规范。
 
 ### 3.2 复用现有表
 

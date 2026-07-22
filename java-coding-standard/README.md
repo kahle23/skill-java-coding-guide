@@ -1,4 +1,4 @@
-# Java Coding Guide — AI 编码指南技能
+# Java Coding Standard — AI 编码规范技能
 
 一个指导 AI 编写高质量、风格统一的 Java 代码的技能。各 Java 版本通用，不绑定特定框架或技术栈。
 

@@ -101,7 +101,7 @@
 | return_time | datetime | 归还时间 |
 | approve_reason | varchar(500) | 审批意见/拒绝原因 |
 
-> 其他标准字段（create_user, create_time 等）参考 db-design-guide 规范。
+> 其他标准字段（create_user, create_time 等）参考 db-design-standard 规范。
 
 #### 6. 关键业务逻辑
 

@@ -161,7 +161,7 @@ export function applyBorrow(data) {
 
 ### 后端框架特别说明
 
-如果项目用了公司内部框架（如 Baibao/Kunlun），参考 `java-coding-guide` 的 23 号文档理解：
+如果项目用了公司内部框架（如 Baibao/Kunlun），参考 `java-coding-standard` 的 23 号文档理解：
 - `BaseServiceImpl` 的泛型 → 实体类型、主键类型
 - `QueryMode` → 查询模式约定
 - `DeleteStatus` → 软删除机制

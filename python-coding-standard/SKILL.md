@@ -1,11 +1,15 @@
 ---
-name: "python-coding-guide"
+name: "python-coding-standard"
 description: "Python 编码规范与最佳实践。触发：Python 代码编写/审查/优化/重构、编码规范、类型提示、异常处理、数据结构选型、装饰器/上下文管理器、设计模式、性能优化、并发编程（threading/asyncio/multiprocessing）、pytest 测试、虚拟环境、依赖管理、代码格式化。"
 ---
 
-# Python Coding Guide
+# Python Coding Standard
 
 面向 Python 3.9+，不绑定特定框架（Flask / FastAPI / Django 均适用）。本文档为 AI 编写 Python 代码的统一规范入口。
+
+## 本技能性质
+
+这是 **Reference 型技能**（规范参考）。核心动作是**查阅确认**——写代码时需要查规则就过来查，不需要从头到尾读一遍。与 Workflow 型技能（引导你走完一个流程）不同，本技能的使用方式是：按需命中对应编号文档 → 确认规范 → 回去写代码。
 
 > **版本注意**：示例使用 `list[int]` / `dict[str, Any]` 等泛型语法（3.9+）、`X | Y` 联合类型（3.10+）、`dataclasses`（3.7+）。低版本项目用 `typing.List` / `typing.Union` 替代。
 
