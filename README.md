@@ -147,3 +147,120 @@ description: 技能描述与触发词，用于 AI 判断何时加载
 ## 许可
 
 内部使用，按需自定义。
+
+---
+
+## 技能安装脚本（install-skills）
+
+把本目录（`skills-developer`）下所有含 `SKILL.md` 的子目录，通过 **Windows 目录联接（Junction，免管理员权限）** 安装到各 AI 工具的全局技能目录。
+
+- 一份源码、多处复用：链接目录的读写直接作用到本仓库（源目录），不会复制文件。
+- 跨工具通用：这些技能遵循 Agent Skills 开放标准，WorkBuddy / Trae / Claude Code / Codex 共用同一套 `SKILL.md` 格式。
+
+### 文件
+
+| 文件 | 作用 |
+|------|------|
+| `install-skills.windows.ps1` | 核心脚本（逻辑） |
+| `install-skills.windows.bat` | 双击入口，内部自动加 `-ExecutionPolicy Bypass` 绕开执行策略 |
+
+> 平台区分：文件名带 `windows` 标识。未来做 Linux 版时新增 `install-skills.linux.sh` 即可一一对应。
+
+### 快速开始
+
+**双击 `install-skills.windows.bat`**：默认安装到 WorkBuddy。
+
+**命令行指定 agent**：
+```bat
+install-skills.windows.bat -Agent claude    :: 只装 Claude Code
+install-skills.windows.bat -Agent all       :: 一次装到全部五个 agent
+install-skills.windows.bat -Skill java-coding-standard  :: 只装一个技能
+install-skills.windows.bat -Agent all -DryRun           :: 预览，不实际执行
+```
+
+**查看完整帮助**：
+```bat
+install-skills.windows.bat -Help
+powershell -File install-skills.windows.ps1 -Help
+```
+
+### 参数
+
+| 参数 | 说明 |
+|------|------|
+| `-Agent <name>` | 目标 agent，取值见下表，默认 `workbuddy` |
+| `-Dest <path>`   | 自定义目标目录（指定后覆盖 `-Agent`） |
+| `-Skill <name>`  | 只处理指定技能（目录名）；不指定则处理全部 |
+| `-Uninstall`     | 删除指向本仓库的链接；只删链接，不动源目录 |
+| `-DryRun`        | 预览模式：只打印将要做什么，不实际执行（卸载也支持） |
+| `-Force`         | 重建已存在但指向旧路径的链接（换机器/挪仓库后修复用） |
+| `-LogFile <path>`| 把每次操作记录追加到指定文件，方便事后排查 |
+| `-Help`          | 显示完整帮助 |
+
+### `-Agent` 取值与对应 Windows 目录
+
+| 取值 | 目标目录 |
+|------|----------|
+| `workbuddy`（默认） | `%userprofile%\.workbuddy\skills` |
+| `trae`              | `%userprofile%\.trae\skills` |
+| `trae-cn`           | `%userprofile%\.trae-cn\skills` |
+| `claude`            | `%userprofile%\.claude\skills` |
+| `codex`             | `%userprofile%\.agents\skills` **和** `%userprofile%\.codex\skills`（双目录，见下注） |
+| `all`               | 以上**全部五个** |
+
+### 常用示例
+
+```bat
+:: 装到 WorkBuddy（默认）
+install-skills.windows.bat
+
+:: 装到 Claude Code
+install-skills.windows.bat -Agent claude
+
+:: 一次装到全部 agent
+install-skills.windows.bat -Agent all
+
+:: 只装某个技能（目录名）
+install-skills.windows.bat -Skill java-coding-standard
+
+:: 预览：只看会做什么，不实际执行（安装/卸载都支持）
+install-skills.windows.bat -Agent all -DryRun
+
+:: 挪过仓库后，重建指向旧路径的失效链接
+install-skills.windows.bat -Agent all -Force
+
+:: 记录操作日志到文件，方便事后排查
+install-skills.windows.bat -Agent all -LogFile "%userprofile%\skills-install.log"
+
+:: 自定义任意目标目录
+powershell -File install-skills.windows.ps1 -Dest "<你的目标目录>"
+
+:: 卸载（仅删除指向本仓库的链接）
+install-skills.windows.bat -Agent trae-cn -Uninstall
+
+:: 卸载前先预览会删哪些
+install-skills.windows.bat -Agent trae-cn -Uninstall -DryRun
+```
+
+### 新增 / 维护技能
+
+1. 把带 `SKILL.md` 的子目录丢进本目录。
+2. 双击 `install-skills.windows.bat`（或带 `-Agent`）。
+3. 脚本自动识别新目录并创建链接，已存在同名链接会自动跳过；链接指向旧路径的会被标记为 stale，加 `-Force` 重建。
+
+### 注意事项
+
+1. **删除链接：优先用脚本卸载，手动删不要用 `rmdir /S`**
+   批量移除用 `install-skills.windows.bat -Agent <name> -Uninstall`（内部用 .NET `Directory.Delete(path, recursive:false)`，只删链接、不碰源目录，比 `rmdir` 更安全）。单个手动删除用 `rmdir "%userprofile%\.workbuddy\skills\<名称>"` 也可以，但**千万别加 `/S`**——会递归删除真实源文件。> 坑：PowerShell 的 `Remove-Item` 在某些版本会跟随 junction 递归删源文件，脚本已规避，切勿自行改用 `Remove-Item`。
+2. **Trae 兼容性**
+   Trae 要求技能 `SKILL.md` 头部含 `name:` / `description:` 的 frontmatter 才显示。若装过去后 Trae 内不显示，逐个核对 SKILL.md 头部格式。
+3. **Claude Code 需重启**
+   Claude Code 只 watch「会话启动时已存在」的顶级 skills 目录。首次装完后请**重启 Claude Code**（或新开会话）才会加载新建的 `.claude\skills` 目录。
+4. **编码**
+   脚本保持纯 ASCII（无中文注释），以规避 PowerShell 5.1 读取无 BOM 的 UTF-8 时把中文当乱码解���报语法错的坑。
+5. **Codex 双目录**
+   Codex 不同版本扫描的技能目录不一致：社区多引用 `~/.agents/skills`，也有资料指向 `~/.codex/skills`。脚本对 `-Agent codex` 会**同时安装到这两个目录**，确保任意版本都能发现技能。若你的 Codex 只认其一、担心另一处重复，可用 `install-skills.windows.ps1 -Dest "%userprofile%\.codex\skills" -Uninstall` 只移除多余那处的链接（同理可移除 `.agents` 处）。安装/卸载都只动链接、不碰源目录。
+6. **换机器 / 挪过仓库后链接失效**
+   Junction 记录的是绝对路径，源目录搬走后旧链接会指向不存在的路径。重装脚本会把这些标记为 `Stale links`，加 `-Force` 即可批量重建。建议配合 `-DryRun` 先看一遍再正式跑。
+7. **执行摘要**
+   脚本结束时打印统计（`Installed / Recreated / Skipped / Stale / Uninstalled / Failed`）。任一操作失败时退出码为 `2`，成功为 `0`，便于在 CI 或批处理中判断结果。
